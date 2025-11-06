@@ -16,7 +16,7 @@
    uv sync
    ``
 2. 导出设备IP和Token (最好在路由器中固定设备IP)
-   使用https://github.com/PiotrMachowski/Xiaomi-cloud-tokens-extractor导出米家设备的内网地址和密钥  
+   使用[[Xiaomi-cloud-tokens-extractor]](https://github.com/PiotrMachowski/Xiaomi-cloud-tokens-extractor)导出米家设备的内网地址和密钥  
    <img width="665" height="252" alt="image" src="https://github.com/user-attachments/assets/e2351f86-f641-4a74-9200-61601b23566d" />
 
 4. 运行启动脚本`run_monitor.bat`
