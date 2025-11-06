@@ -15,8 +15,10 @@
    cd mi-screen-light
    uv sync
    ``
-2. 导出设备IP和Token
+2. 导出设备IP和Token (最好在路由器中固定设备IP)
    使用https://github.com/PiotrMachowski/Xiaomi-cloud-tokens-extractor导出米家设备的内网地址和密钥
-3. 运行启动脚本`run_monitor.bat`
-4. 修改配置文件
-5. 将`run_monitor.bat`添加到启动项或者计划任务的系统启动中
+   <img width="665" height="252" alt="image" src="https://github.com/user-attachments/assets/e2351f86-f641-4a74-9200-61601b23566d" />
+
+4. 运行启动脚本`run_monitor.bat`
+5. 修改配置文件
+6. 将`run_monitor.bat`添加到启动项或者计划任务的系统启动中
