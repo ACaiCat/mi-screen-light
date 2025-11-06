@@ -1,0 +1,10 @@
+[project]
+name = "mi-screen-light"
+version = "0.1.0"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "pydantic>=2.12.4",
+    "pynput>=1.8.1",
+    "python-miio",
+]
