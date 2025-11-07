@@ -11,7 +11,7 @@ if __name__ == "__main__":
     Config.read()
     monitor = ActivityMonitor()
 
-    time.sleep(1)
+    time.sleep(3)
     console_window = win32gui.GetForegroundWindow()
     if console_window:
         win32gui.ShowWindow(console_window, win32con.SW_HIDE)
