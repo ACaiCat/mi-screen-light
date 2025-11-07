@@ -8,7 +8,10 @@ CONFIG_PATH = Path("./config.json")
 class Config(BaseModel):
     light_ip: str = Field(default="<light ip>")
     light_token: str = Field(default="<light token>")
-    auto_close_inactive_seconds: int = Field(default=60 * 20)
+    auto_open: bool = Field(default=True)
+    auto_close: bool = Field(default=True)
+    sync_status_interval: int = Field(default=15)
+    auto_close_idle_timeout: int = Field(default=60*20)
 
     instance: "Config" = Field(default=None, exclude=True)
 
@@ -18,7 +21,6 @@ class Config(BaseModel):
             cls.instance = Config()
             cls.write()
             print("Config not found, generating default config...")
-
             exit()
 
         with open(CONFIG_PATH, "rt") as f:
@@ -27,4 +29,4 @@ class Config(BaseModel):
     @classmethod
     def write(cls) -> None:
         with open(CONFIG_PATH, "wt") as f:
-            f.write(cls.instance.model_dump_json(indent=True))
+            f.write(cls.instance.model_dump_json(indent=2))
