@@ -1,0 +1,64 @@
+name: Build
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: windows-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up Python 3.12
+        uses: actions/setup-python@v3
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        shell: bash
+        run: |
+          python -m pip install --upgrade pip
+          pip install uv
+          uv sync
+
+      - name: Build
+        shell: bash
+        run: |
+          uv run pyinstaller --collect-all miio --noconsole --onefile main.py --name mi-screen-light
+
+
+      - name: Upload EXE
+        uses: actions/upload-artifact@v5
+        with:
+          name: mi-screen-light
+          path: |
+            ./dist/mi-screen-light.exe
+
+      - name: Set Release Tag
+        id: set_tag
+        run: echo "::set-output name=tag::v$(date +'%Y.%m.%d')"
+
+      - name: Update Tag
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+        run: |
+          git tag -f ${{ steps.set_tag.outputs.tag }}
+          git push -f origin ${{ steps.set_tag.outputs.tag }}
+
+      - name: Release
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+        uses: ncipollo/release-action@v1
+        with:
+          tag: ${{ steps.set_tag.outputs.tag }}
+          name: mi-screen-light ${{ steps.set_tag.outputs.tag }}
+          body: |
+            # mi-screen-light Ciallo～(∠・ω< )⌒☆
+            ### 📦 Auto Build By Github Action
+          artifacts: |
+            ./dist/mi-screen-light.exe
+          allowUpdates: true
+          removeArtifacts: true

@@ -12,3 +12,4 @@ wheels/
 config.json
 uv.lock
 .idea
+*.spec
